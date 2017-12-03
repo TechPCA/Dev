@@ -3,11 +3,15 @@ service: techpca
 
 frameworkVersion: ">=1.1.0 <2.0.0"
 
+package:
+  include:
+    - utils/techpca_utils.js
+
 provider:
   stage: dev
   name: aws
   runtime: nodejs6.10
-  region: us-west-2
+  region: us-east-1
   iamRoleStatements:
      - Effect: "Allow"
        Resource: "*"
@@ -15,8 +19,8 @@ provider:
          - "dynamodb:*"
          - "sns:*"
   environment:
-    TECHPCA_API_VER: v0_1_0  #TODO: example enviornemnt key/val
-    TECHPCA_AWS_ENV_KEY: "exampleValue"  #TODO: example enviornemnt key/val
+    TECHPCA_API_VER: v0_1_0  #TODO: example environment key/val
+    TECHPCA_AWS_ENV_KEY: "exampleValue"  #TODO: example environment key/val
 
 
 
@@ -29,7 +33,7 @@ functions:
 #Default page -- should never be called:
   default-getIndexDefault:  #TODO: should we use dots?  See:  https://github.com/serverless/serverless/blob/e283be67f0807039bb6aa805283e9ceb700eaede/lib/plugins/aws/lib/naming.js
     handler: default.getIndexDefault
-    onError: arn:aws:sns:us-west-2:358447657268:TechPCA-Dev--Error  #TODO: make this dynamic
+    onError: arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error  #TODO: make this dynamic
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
@@ -38,7 +42,7 @@ functions:
 # CONTENT: GENERATOR: GROUP:  Group main index page
   content-generators-group-index-getIndex:  #TODO: should we use dots?  See:  https://github.com/serverless/serverless/blob/e283be67f0807039bb6aa805283e9ceb700eaede/lib/plugins/aws/lib/naming.js
     handler: content/generators/group/index.getIndex
-    onError: arn:aws:sns:us-west-2:358447657268:TechPCA-Dev--Error  #TODO: make this dynamic
+    onError: arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error  #TODO: make this dynamic
     events:
       - http:
           method: get
@@ -48,20 +52,21 @@ functions:
 #
 #ENDPOINTS:
 #
-  endpoints-groups-techpca_org-getIndex:
-    handler: endpoints/groups/techpca_org.getIndex
-    onError: arn:aws:sns:us-west-2:358447657268:TechPCA-Dev--Error  #TODO: make this dynamic
-    tags:
-      depricated: true
-    events:
-      - http:
-          method: get
-          path: group/techpca_org
+# TODO: Remove this with the UUID
+
+  endpoints-groups-techpca_org-getIndexDev:
+    handler: endpoints/groups/techpca_org.getIndexDev
+    onError: arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error  #TODO: make this dynamic
+
+
+  endpoints-groups-techpca_org-getIndexPro:
+    handler: endpoints/groups/techpca_org.getIndexPro
+    onError: arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error  #TODO: make this dynamic
 
 
 # TODO: set up a logger
 #  logger:
 #    handler: logger.logger
 #    events:
-#      - stream: arn:aws:dynamodb:us-west-2:348070932246:table/User/stream/<timestamp>
+#      - stream: arn:aws:dynamodb:us-east-1:348070932246:table/User/stream/<timestamp>
 

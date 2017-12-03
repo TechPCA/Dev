@@ -1,0 +1,745 @@
+{
+  "service": {
+    "service": "techpca",
+    "serviceObject": {
+      "name": "techpca"
+    },
+    "provider": {
+      "stage": "dev",
+      "region": "us-east-1",
+      "variableSyntax": "\\${([ ~:a-zA-Z0-9._'\",\\-\\/\\(\\)]+?)}",
+      "name": "aws",
+      "runtime": "nodejs6.10",
+      "iamRoleStatements": [
+        {
+          "Effect": "Allow",
+          "Resource": "*",
+          "Action": [
+            "dynamodb:*",
+            "sns:*"
+          ]
+        }
+      ],
+      "environment": {
+        "TECHPCA_API_VER": "v0_1_0",
+        "TECHPCA_AWS_ENV_KEY": "exampleValue"
+      },
+      "versionFunctions": true,
+      "remoteFunctionData": null,
+      "compiledCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          },
+          "DefaultDashgetIndexDefaultLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/techpca-dev-default-getIndexDefault"
+            }
+          },
+          "ContentDashgeneratorsDashgroupDashindexDashgetIndexLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/techpca-dev-content-generators-group-index-getIndex"
+            }
+          },
+          "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexDevLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/techpca-dev-endpoints-groups-techpca_org-getIndexDev"
+            }
+          },
+          "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexProLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/techpca-dev-endpoints-groups-techpca_org-getIndexPro"
+            }
+          },
+          "IamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "dev",
+                        "techpca",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/techpca-dev-default-getIndexDefault:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/techpca-dev-content-generators-group-index-getIndex:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/techpca-dev-endpoints-groups-techpca_org-getIndexDev:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/techpca-dev-endpoints-groups-techpca_org-getIndexPro:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/techpca-dev-default-getIndexDefault:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/techpca-dev-content-generators-group-index-getIndex:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/techpca-dev-endpoints-groups-techpca_org-getIndexDev:*:*"
+                          },
+                          {
+                            "Fn::Sub": "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/techpca-dev-endpoints-groups-techpca_org-getIndexPro:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Resource": "*",
+                        "Action": [
+                          "dynamodb:*",
+                          "sns:*"
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "sns:Publish"
+                        ],
+                        "Resource": [
+                          "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error"
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "sns:Publish"
+                        ],
+                        "Resource": [
+                          "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error"
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "sns:Publish"
+                        ],
+                        "Resource": [
+                          "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error"
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "sns:Publish"
+                        ],
+                        "Resource": [
+                          "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error"
+                        ]
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "techpca",
+                    "dev",
+                    "us-east-1",
+                    "lambdaRole"
+                  ]
+                ]
+              }
+            }
+          },
+          "DefaultDashgetIndexDefaultLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/techpca/dev/1512296859553-2017-12-03T10:27:39.553Z/techpca.zip"
+              },
+              "FunctionName": "techpca-dev-default-getIndexDefault",
+              "Handler": "default.getIndexDefault",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs6.10",
+              "Timeout": 6,
+              "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error"
+              },
+              "Environment": {
+                "Variables": {
+                  "TECHPCA_API_VER": "v0_1_0",
+                  "TECHPCA_AWS_ENV_KEY": "exampleValue"
+                }
+              }
+            },
+            "DependsOn": [
+              "DefaultDashgetIndexDefaultLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "DefaultDashgetIndexDefaultLambdaVersion3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DefaultDashgetIndexDefaultLambdaFunction"
+              },
+              "CodeSha256": "3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww="
+            }
+          },
+          "ContentDashgeneratorsDashgroupDashindexDashgetIndexLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/techpca/dev/1512296859553-2017-12-03T10:27:39.553Z/techpca.zip"
+              },
+              "FunctionName": "techpca-dev-content-generators-group-index-getIndex",
+              "Handler": "content/generators/group/index.getIndex",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs6.10",
+              "Timeout": 6,
+              "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error"
+              },
+              "Environment": {
+                "Variables": {
+                  "TECHPCA_API_VER": "v0_1_0",
+                  "TECHPCA_AWS_ENV_KEY": "exampleValue"
+                }
+              }
+            },
+            "DependsOn": [
+              "ContentDashgeneratorsDashgroupDashindexDashgetIndexLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "ContentDashgeneratorsDashgroupDashindexDashgetIndexLambdaVersion3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "ContentDashgeneratorsDashgroupDashindexDashgetIndexLambdaFunction"
+              },
+              "CodeSha256": "3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww="
+            }
+          },
+          "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexDevLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/techpca/dev/1512296859553-2017-12-03T10:27:39.553Z/techpca.zip"
+              },
+              "FunctionName": "techpca-dev-endpoints-groups-techpca_org-getIndexDev",
+              "Handler": "endpoints/groups/techpca_org.getIndexDev",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs6.10",
+              "Timeout": 6,
+              "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error"
+              },
+              "Environment": {
+                "Variables": {
+                  "TECHPCA_API_VER": "v0_1_0",
+                  "TECHPCA_AWS_ENV_KEY": "exampleValue"
+                }
+              }
+            },
+            "DependsOn": [
+              "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexDevLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexDevLambdaVersion3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexDevLambdaFunction"
+              },
+              "CodeSha256": "3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww="
+            }
+          },
+          "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexProLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/techpca/dev/1512296859553-2017-12-03T10:27:39.553Z/techpca.zip"
+              },
+              "FunctionName": "techpca-dev-endpoints-groups-techpca_org-getIndexPro",
+              "Handler": "endpoints/groups/techpca_org.getIndexPro",
+              "MemorySize": 1024,
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              },
+              "Runtime": "nodejs6.10",
+              "Timeout": 6,
+              "DeadLetterConfig": {
+                "TargetArn": "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error"
+              },
+              "Environment": {
+                "Variables": {
+                  "TECHPCA_API_VER": "v0_1_0",
+                  "TECHPCA_AWS_ENV_KEY": "exampleValue"
+                }
+              }
+            },
+            "DependsOn": [
+              "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexProLogGroup",
+              "IamRoleLambdaExecution"
+            ]
+          },
+          "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexProLambdaVersion3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexProLambdaFunction"
+              },
+              "CodeSha256": "3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww="
+            }
+          },
+          "ApiGatewayRestApi": {
+            "Type": "AWS::ApiGateway::RestApi",
+            "Properties": {
+              "Name": "dev-techpca"
+            }
+          },
+          "ApiGatewayResourceProxyVar": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
+              },
+              "PathPart": "{proxy+}",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceGroup": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
+              },
+              "PathPart": "group",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceGroupGetindex": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceGroup"
+              },
+              "PathPart": "getindex",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayMethodAny": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "ANY",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Fn::GetAtt": [
+                  "ApiGatewayRestApi",
+                  "RootResourceId"
+                ]
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "DefaultDashgetIndexDefaultLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            }
+          },
+          "ApiGatewayMethodProxyVarAny": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "ANY",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceProxyVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "DefaultDashgetIndexDefaultLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            }
+          },
+          "ApiGatewayMethodGroupGetindexGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceGroupGetindex"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "ContentDashgeneratorsDashgroupDashindexDashgetIndexLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            }
+          },
+          "ApiGatewayDeployment1512296859656": {
+            "Type": "AWS::ApiGateway::Deployment",
+            "Properties": {
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "StageName": "dev"
+            },
+            "DependsOn": [
+              "ApiGatewayMethodAny",
+              "ApiGatewayMethodProxyVarAny",
+              "ApiGatewayMethodGroupGetindexGet"
+            ]
+          },
+          "DefaultDashgetIndexDefaultLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "DefaultDashgetIndexDefaultLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "ContentDashgeneratorsDashgroupDashindexDashgetIndexLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "ContentDashgeneratorsDashgroupDashindexDashgetIndexLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          },
+          "DefaultDashgetIndexDefaultLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "DefaultDashgetIndexDefaultLambdaVersion3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww"
+            }
+          },
+          "ContentDashgeneratorsDashgroupDashindexDashgetIndexLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "ContentDashgeneratorsDashgroupDashindexDashgetIndexLambdaVersion3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww"
+            }
+          },
+          "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexDevLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexDevLambdaVersion3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww"
+            }
+          },
+          "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexProLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "EndpointsDashgroupsDashtechpcaUnderscoreorgDashgetIndexProLambdaVersion3q4sCMoyXbOcpZpOsFEpmoZfLavtz6oum8Pw4GgnQww"
+            }
+          },
+          "ServiceEndpoint": {
+            "Description": "URL of the service endpoint",
+            "Value": {
+              "Fn::Join": [
+                "",
+                [
+                  "https://",
+                  {
+                    "Ref": "ApiGatewayRestApi"
+                  },
+                  ".execute-api.us-east-1.amazonaws.com/dev"
+                ]
+              ]
+            }
+          }
+        }
+      },
+      "coreCloudFormationTemplate": {
+        "AWSTemplateFormatVersion": "2010-09-09",
+        "Description": "The AWS CloudFormation template for this Serverless application",
+        "Resources": {
+          "ServerlessDeploymentBucket": {
+            "Type": "AWS::S3::Bucket"
+          }
+        },
+        "Outputs": {
+          "ServerlessDeploymentBucketName": {
+            "Value": {
+              "Ref": "ServerlessDeploymentBucket"
+            }
+          }
+        }
+      },
+      "vpc": {}
+    },
+    "functions": {
+      "default-getIndexDefault": {
+        "handler": "default.getIndexDefault",
+        "onError": "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error",
+        "events": [
+          {
+            "http": "ANY /"
+          },
+          {
+            "http": "ANY {proxy+}"
+          }
+        ],
+        "name": "techpca-dev-default-getIndexDefault",
+        "package": {},
+        "vpc": {}
+      },
+      "content-generators-group-index-getIndex": {
+        "handler": "content/generators/group/index.getIndex",
+        "onError": "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error",
+        "events": [
+          {
+            "http": {
+              "method": "get",
+              "path": "group/getindex",
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "techpca-dev-content-generators-group-index-getIndex",
+        "package": {},
+        "vpc": {}
+      },
+      "endpoints-groups-techpca_org-getIndexDev": {
+        "handler": "endpoints/groups/techpca_org.getIndexDev",
+        "onError": "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error",
+        "events": [],
+        "name": "techpca-dev-endpoints-groups-techpca_org-getIndexDev",
+        "package": {},
+        "vpc": {}
+      },
+      "endpoints-groups-techpca_org-getIndexPro": {
+        "handler": "endpoints/groups/techpca_org.getIndexPro",
+        "onError": "arn:aws:sns:us-east-1:358447657268:TechPCA-Dev--Error",
+        "events": [],
+        "name": "techpca-dev-endpoints-groups-techpca_org-getIndexPro",
+        "package": {},
+        "vpc": {}
+      }
+    },
+    "artifact": "/Users/lie/dev/TechPCA/GitHub/Dev/serverless/.serverless/techpca.zip"
+  },
+  "package": {
+    "artifactDirectoryName": "serverless/techpca/dev/1512296859553-2017-12-03T10:27:39.553Z",
+    "artifact": "techpca.zip"
+  }
+}

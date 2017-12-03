@@ -9,7 +9,9 @@
   "author": "Lie",
   "license": "#TODO-#TBD",
   "dependencies": {
+    "aws-sdk": "^2.162.0",
     "express": "^4.16.2",
+    "lambda": "^0.10.3",
     "serverless-http": "^1.5.1"
   }
 }
