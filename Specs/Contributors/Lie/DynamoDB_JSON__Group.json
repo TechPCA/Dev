@@ -1,0 +1,113 @@
+{
+  "uuid": {
+    "S": "1CCE6944-D8F0-44A2-A25E-C46EBF64617E"
+  },
+  "strNameDisplay": {
+    "S": "TechPCA.org"
+  },
+  "intState": {
+    "N": "1"
+  },
+  "jsonDisplay": {
+    "S": "{}"
+  },
+  "dateCreated": {
+    "N": "1512367146"
+  },
+  "dateLastUpdate": {
+    "N": "1512367146"
+  },
+  "jsonHistory": {
+    "S": "{}"
+  },
+  "urlPrimary": {
+    "S": "https://TechPCA.org"
+  },
+  "setUuidMemberPerson": {
+    "SS": [
+      "C49BCF5D-0D6E-4C84-AD42-91A5E999A17D"
+    ],
+  "setUuidMemberGroup": {
+    "SS": [
+    ],
+  "setUuidMemberDevOps": {
+    "SS": [
+    ]
+  }
+}
+
+
+
+
+
+jsonDisplay:
+
+  intType:
+  	0 = arnS3Html is a single html page to return  
+  	1 = 
+  
+  arnS3 - a s3 arn of a static file to get and return the contents of 
+
+
+
+
+
+
+
+  + uuid - this is the primary identifier
+  + jsonDisplay - this is the primary JSON dict (Dictionary) that holds logic for how to view this instance (as either html and JSON):
+  	{
+  	}
+  
+  + dateCreated
+  + dateLastUpdate
+  
+  + jsonHistory - JSON dict that holds copies of previous state to allow for undo/rollback
+  	{
+  	}
+  
+  
+  
+}  
+  
+
+**********************************************************
+(***) Group:  One or more members (a member can be any other object including Person, Group, and DevOps)
+
+
+NOTE:  Groups are always members of themselves (so there's no empty setUuidMemberGroup)
+
+
+ - Primary key:  uuid
+ - Sort key:  TBD
+
+Administration:
+  + boMemberJoinWithoutModeration
+
+
+Membership:
+  + jsonMembers
+  	{
+  		arrUuidPerson: [], // Arry of Person members
+  		arrUuidGroup: [], // Arry of Group members
+  		arrUuidDevOps: [], // Arry of DevOps members
+  	}
+  
+
+  + uuid - this is the primary identifier
+  + jsonDisplay - this is the primary JSON dict (Dictionary) that holds logic for how to view this instance (as either html and JSON):
+  	{
+  	}
+  
+  + dateCreated
+  + dateLastUpdate
+  
+  + intState - 0 / null = normal, anything else is TBD (e.g. maybe 1 = hidden...)
+  
+  + jsonHistory - JSON dict that holds copies of previous state to allow for undo/rollback
+  	{
+  	}
+  
+  
+  
+}

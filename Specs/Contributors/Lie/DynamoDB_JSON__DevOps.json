@@ -1,0 +1,18 @@
+{
+  "uuid": {
+    "S": "D4CAB4DB-311A-426D-B766-E5250455AA2B"
+  },
+  "strNameDisplay": {
+    "S": "TechPCA-Admin-Bot"
+  }
+}
+
+
+
+**********************************************************
+(***) DevOps:  DevOps: Entities that administer the system (human, AI, bot, API, etc...)
+ - Primary key:  uuid
+ - Sort key:  TBD
+
+
+

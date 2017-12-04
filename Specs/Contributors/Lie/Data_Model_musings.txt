@@ -1,0 +1,34 @@
+Data Model
+
+**********************************************************
+(***) DynamoDB Tables:
+
+Person: Single entity, typically a human
+
+Group:  Collection of Person and DevOps
+
+DevOps: Entities that administer the system (human, AI, bot, API, etc...)
+
+
+
+**********************************************************
+(***) Shared Properites (all Tables have these):
+  
+  + uuid - this is the primary identifier
+  + jsonDisplay - this is the primary JSON dict (Dictionary) that holds logic for how to view this instance (as either html and JSON):
+  	{
+  	}
+  
+  + dateCreated
+  + dateLastUpdate
+  
+  + intState - 0 / null = normal, anything else is TBD (e.g. maybe 1 = hidden...)
+  
+  + jsonHistory - JSON dict that holds copies of previous state to allow for undo/rollback
+  	{
+  	}
+  
+  
+  
+
+

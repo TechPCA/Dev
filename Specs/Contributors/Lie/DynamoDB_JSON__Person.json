@@ -1,0 +1,36 @@
+{
+  "uuid": {
+    "S": "C49BCF5D-0D6E-4C84-AD42-91A5E999A17D"
+  },
+  "strNameDisplay": {
+    "S": "Lie"
+  }
+}
+
+
+
+
+**********************************************************
+(***) Person: Single entity, typically a human
+ - Primary key:  uuid
+ - Sort key:  TBD
+
+
+Profile: stuff about the Person
+  + strNameFirst, strNameMiddle, strNameLast, strNameFirstDisplay, strNameFirstPrevious, etc...
+  + 
+
+
+PCProps: stuff about their relation to the community
+  + boIsPCStaff
+  + boIsPCV
+  + jsonCountriesOfService - JSON dict of countries of service and information about each
+  	{
+  		1 : {  //keys are integers starting at 1 //TODO: start at 0 or start at 1?
+  		},  
+  	}
+
+
+Membership:
+  + jsonGroups - JSON dict that holds membership info
+  
