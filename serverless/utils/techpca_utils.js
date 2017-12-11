@@ -16,6 +16,7 @@ const cStrPackageName = 'TechPCA-Utils';
 
 
 
+
 class TPCAUtils {
 
   constructor() {
@@ -154,6 +155,7 @@ class TPCAUtils {
 `;
       } //end else if DEBUG error
 
+      // noinspection UnnecessaryLocalVariableJS
       const vResponseOut = {
         statusCode: 200,
         headers: {
@@ -213,12 +215,76 @@ class TPCAUtils {
   }
 
 
+  fLambdaInvoke (aDictParams, aCallback) {
+    let vStrLambdaFunctionName = aDictParams['FunctionName'];
+
+    if (process.env.IS_OFFLINE) {
+
+      let vStrFileName = vStrLambdaFunctionName.toString().split('techpca-dev-')[1]; //TODO: dynamically figure out what to strip off the front
+
+      //by convention, the function name is now the last component
+      let vArrSections = vStrFileName.split('-');
+      let vStrJSFunctionName = vArrSections[vArrSections.length-1];
+
+      vStrFileName = "..";
+
+      for (var i=0; i < (vArrSections.length - 1); i++) {
+        vStrFileName = vStrFileName + '/' + vArrSections[i];
+      }
+
+      vStrFileName = vStrFileName + ".js";
+
+      let vLambdaLocal = require(vStrFileName);
+
+      if (this.fIsDebugVerbose()) {
+        this.fLog(cFileName + ": fLambdaInvoke(): process.env.IS_OFFLINE = calling "+vStrLambdaFunctionName+" via: "+vStrFileName);
+      }
+
+      //TODO: error handle missing params/values:
+
+      let vArrParams = JSON.parse(aDictParams['Payload']);
+
+      vArrParams.push(aCallback);
+
+      let fCallbackHacked = function (err, data) {
+
+        //Have to wrap data inside an object with a Payload
+        //TODO: what else needs to go into this hacked data object?
+        let vDataWrapper = {'Payload': JSON.stringify(data)};
+
+        aCallback(err, vDataWrapper);
+      };
+
+      vLambdaLocal[vStrJSFunctionName](vArrParams[0], vArrParams[1], fCallbackHacked);
+
+    } else { //Not offline: call the lambda using the AWS-SDK
+
+      if (this.fIsDebugVerbose()) {
+        this.fLog(cFileName + ": fLambdaInvoke(): ONLINE: invoking: "+vStrLambdaFunctionName);
+      }
+
+      let cLambda = new cAWS.Lambda({  //create an instance of this
+        //TODO: region as ENV var
+//    region: 'us-east-1' //if you want to change to your region
+      });
+
+      cLambda.invoke(aDictParams, aCallback);
+
+    }
+
+  };
+
+
   //TODO: function that takes in ANYTHING and returns a debug string for it
 
 
+
+
+
+
+
+
 }
-
-
 
 
 module.exports = TPCAUtils;

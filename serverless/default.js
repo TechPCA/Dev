@@ -16,6 +16,8 @@ const cTPCAUtils = new cTPCAUtilsClass();
 //TODO: load this from DynamoDB and switch from lambda ARN to UUID w/ lookup in DynamoDB
 const cDictREsToUUIDGroup = {
   //WARNING: make all keys lowercase!
+  "localhost": 'techpca-dev-endpoints-groups-techpca_org-getIndexPro',
+  "127.0.0.1": 'techpca-dev-endpoints-groups-techpca_org-getIndexPro',
   "dev.techpca.org": 'techpca-dev-endpoints-groups-techpca_org-getIndexDev',
   "www.techpca.org": 'techpca-dev-endpoints-groups-techpca_org-getIndexPro'
 };
@@ -30,6 +32,8 @@ function fGetIndexDefault(event, context, callback) {
   let vTPCAOut = {};  //TODO: what's our TLA/FLA for our objects?
 
   let vStrHost = event["headers"]["Host"];
+
+  vStrHost = vStrHost.split(':')[0];
 
   const cAWS = require('aws-sdk');
   const cLambda = new cAWS.Lambda({
@@ -48,11 +52,12 @@ function fGetIndexDefault(event, context, callback) {
   }
 
   if (vLambdaName) {
-    cLambda.invoke(
+
+    cTPCAUtils.fLambdaInvoke(
       {
         FunctionName: vLambdaName,
         InvocationType: "RequestResponse",
-        Payload: JSON.stringify(event, context)
+        Payload: JSON.stringify( [event, context] )
       },
       function (error, data) {
 
